@@ -3,8 +3,9 @@ import os
 import pickle
 import sys
 
+PICKLE_FILE = os.path.join(os.path.dirname(sys.argv[0]),
+                           'duplicates.pickle')
 
-PICKLE_FILE = '/home/erikbryant/dev/duplicates/duplicates.pickle'
 
 def get_hash(in_file):
     m = hashlib.sha256()
