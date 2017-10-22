@@ -36,11 +36,13 @@ def load():
         return {}
 
 
-def update_hashes(base_name):
+def update_hashes():
     file_hash = load()
-    for f in get_files(base_name):
-        if f not in file_hash.keys():
-            file_hash[f] = get_hash(f)
+    for i in range(1, len(sys.argv)):
+        print("Scanning %s ..." % sys.argv[i])
+        for f in get_files(sys.argv[i]):
+            if f not in file_hash.keys():
+                file_hash[f] = get_hash(f)
     save(file_hash)
     return file_hash
 
@@ -54,14 +56,12 @@ def invert(dict1):
     return dict2
 
 
-def main(base_name):
-    file_hash = update_hashes(base_name)
+def main():
+    file_hash = update_hashes()
     hash_file = invert(file_hash)
     for h, f in hash_file.items():
         if len(f) > 1:
             print("Duplicates: %s" % f)
 
 
-for i in range(1, len(sys.argv)):
-    print("Scanning %s ..." % sys.argv[i])
-    main(base_name=sys.argv[i])
+main()
