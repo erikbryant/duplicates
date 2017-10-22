@@ -43,7 +43,7 @@ def update_hashes():
         for f in get_files(sys.argv[i]):
             if f not in file_hash.keys():
                 file_hash[f] = get_hash(f)
-    save(file_hash)
+        save(file_hash)
     return file_hash
 
 
