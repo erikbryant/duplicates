@@ -62,4 +62,6 @@ def main(base_name):
             print("Duplicates: %s" % f)
 
 
-main(base_name=sys.argv[1])
+for i in range(1, len(sys.argv)):
+    print("Scanning %s ..." % sys.argv[i])
+    main(base_name=sys.argv[i])
