@@ -36,11 +36,22 @@ def load():
         return {}
 
 
+def flush_hashes(dirname, file_hash):
+    for key in list(file_hash.keys()):
+        if key.startswith(dirname):
+            print("Deleting: %s" % key)
+            del file_hash[key]
+    return file_hash
+
+
 def update_hashes():
     file_hash = load()
     for i in range(1, len(sys.argv)):
-        print("Scanning %s ..." % sys.argv[i])
-        for f in get_files(sys.argv[i]):
+        path = os.path.realpath(sys.argv[i])
+        print("Flushing %s ..." % path)
+        file_hash = flush_hashes(path, file_hash)
+        print("Scanning %s ..." % path)
+        for f in get_files(path):
             if f not in file_hash.keys():
                 file_hash[f] = get_hash(f)
         save(file_hash)
